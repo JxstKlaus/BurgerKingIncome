@@ -59,12 +59,13 @@ def dailyWage(year,date,workhours,hourly_wage):
         #break time gets the multiplier of the 2nd hour
         #if 2nd hour is between 17:00-18:00 and has 1x multiplier (no bonus)
         #then break takes time between 18:00-18:30 and has 1x multiplier: ignores the shift allowance bonus
-        if end-start > 6 and hour - start == 2:
+        if end-start > 6 and hour - start == 3:
              multiplier = shiftAllowance(int(hour),base_multiplier)
              break_time = 0.5
-             daily_wage += break_time * hourly_wage * multiplier
+             daily_wage += break_time * hourly_wage * base_multiplier
              hours_worked += break_time
-             end -= break_time
+             hour += break_time
+             #end -= break_time
              daily_break = 1
         
         multiplier = shiftAllowance(hour,base_multiplier)
@@ -123,21 +124,22 @@ def getIncome(year,month,hourly_wage):
             monthly_hours_worked += daily_hours_worked
             monthly_break_count += daily_break
 
-        #monthly bonuses are based on the worked off hours: breaks don't count in --> (monthly_hours_worked - monthly_break_count*0.2)
-        worked_off_hours = monthly_hours_worked - monthly_break_count*0.2
+        #monthly bonuses are based on the worked off hours: breaks don't count in --> (monthly_hours_worked - monthly_break_count*(1/3))
+        worked_off_hours = monthly_hours_worked - monthly_break_count*(1/3)
 
         if worked_off_hours > 150:
-            monthly_wage += 270*worked_off_hours
+            monthly_wage += 300*worked_off_hours
         elif worked_off_hours > 120:
-            monthly_wage += 210*worked_off_hours
+            monthly_wage += 250*worked_off_hours
         elif worked_off_hours > 100:
-            monthly_wage += 180*worked_off_hours
+            monthly_wage += 210*worked_off_hours
         elif worked_off_hours > 80:
-            monthly_wage += 140*worked_off_hours
+            monthly_wage += 160*worked_off_hours
         elif worked_off_hours > 40:
-            monthly_wage += 110*worked_off_hours
+            monthly_wage += 120*worked_off_hours
 
-        total_hours_worked += monthly_hours_worked
+        total_hours_worked += worked_off_hours
+        #total_hours_worked += monthly_hours_worked
         total_wage += monthly_wage
 
     return total_hours_worked,total_wage
