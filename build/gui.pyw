@@ -43,13 +43,17 @@ def calculate():
     month = entry_2.get()
     hourly_wage = int(entry_3.get())
 
-    try:
+
+    hours_worked, total_wage = (getIncome(year,month,hourly_wage))
+    canvas.itemconfig(tagOrId=hours_worked_text, text= f"{hours_worked:.1f} hr")
+    canvas.itemconfig(tagOrId=income_text, text= f"{int(total_wage)} Ft")
+    """try:
         hours_worked, total_wage = (getIncome(year,month,hourly_wage))
         canvas.itemconfig(tagOrId=hours_worked_text, text= f"{hours_worked:.1f} hr")
         canvas.itemconfig(tagOrId=income_text, text= f"{int(total_wage)} Ft")
     except:
         canvas.itemconfig(tagOrId=hours_worked_text, text= "error")
-        canvas.itemconfig(tagOrId=income_text, text= "error")
+        canvas.itemconfig(tagOrId=income_text, text= "error")"""
 
 #------------------------------------------------------------------------------------------
 canvas = Canvas(

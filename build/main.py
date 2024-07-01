@@ -46,9 +46,9 @@ def dailyWage(year,date,workhours,hourly_wage):
     hours_worked = 0
     daily_break = 0
 
-    #Weekend bonus 10%
+    #Weekend bonus 20%
     if isWeekend(year,month,day):
-        base_multiplier = 1.1
+        base_multiplier = 1.2
     else:
         base_multiplier = 1
 
@@ -127,15 +127,17 @@ def getIncome(year,month,hourly_wage):
         #monthly bonuses are based on the worked off hours: breaks don't count in --> (monthly_hours_worked - monthly_break_count*(1/3))
         worked_off_hours = monthly_hours_worked - monthly_break_count*(1/3)
 
-        if worked_off_hours > 150:
+        if worked_off_hours >= 150:
             monthly_wage += 300*worked_off_hours
-        elif worked_off_hours > 120:
+            monthly_wage += 6770
+        elif worked_off_hours >= 120:
             monthly_wage += 250*worked_off_hours
-        elif worked_off_hours > 100:
+            monthly_wage += 6015
+        elif worked_off_hours >= 100:
             monthly_wage += 210*worked_off_hours
-        elif worked_off_hours > 80:
+        elif worked_off_hours >= 80:
             monthly_wage += 160*worked_off_hours
-        elif worked_off_hours > 40:
+        elif worked_off_hours >= 40:
             monthly_wage += 120*worked_off_hours
 
         total_hours_worked += worked_off_hours
